@@ -1,35 +1,953 @@
-# Gradle files
-.gradle/
-build/
-.kotlin/
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ABC Medical System</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI", Arial, sans-serif;
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none !important;
+    user-select: none !important;
+}
 
-# Local configuration file (sdk path, etc)
-local.properties
+body{
+    background:#e2e8f0;
+    color:#1e293b;
+}
 
-# Log/OS Files
-*.log
+.app{
+    width:100%;
+    max-width:480px;
+    min-height:100vh;
+    margin:auto;
+    background:#f8fafc;
+    position:relative;
+    box-shadow:0 10px 30px rgba(0,0,0,.18);
+}
 
-# Android Studio generated files and folders
-captures/
-.externalNativeBuild/
-.cxx/
-*.aab
-*.apk
-output-metadata.json
+.header{
+    height:90px;
+    background:linear-gradient(135deg, #080808 0%, #191919 35%, #8b0000 72%, #c90000 100%);
+    color:white;
+    padding:15px 18px;
+    border-radius:0 0 25px 25px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
 
-# IntelliJ
-*.iml
-.idea/
-misc.xml
-deploymentTargetDropDown.xml
-render.experimental.xml
+.back-btn{
+    width:36px;
+    height:36px;
+    border:none;
+    border-radius:10px;
+    background:rgba(255,255,255,.15);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
 
-# Keystore files
-*.jks
-*.keystore
+.logo{ text-align:center; }
+.logo h1{ font-size:16px; font-weight:800; }
+.logo p{ font-size:9px; color:#ffd6d6; }
 
-# Google Services (e.g. APIs or Firebase)
-google-services.json
+.content{ padding:20px 16px 80px; }
 
-# Android Profiling
-*.hprof
+.section-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:16px;
+}
+
+.section-title{
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.title-line{
+    width:4px;
+    height:18px;
+    background:#b00000;
+    border-radius:2px;
+}
+
+.badge-count{
+    padding:4px 8px;
+    border-radius:8px;
+    background:#fff;
+    border:1px solid #cbd5e1;
+    color:#8b0000;
+    font-size:10px;
+    font-weight:800;
+}
+
+/* CARDS */
+.category-grid{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+
+.category-card{
+    background:#fff;
+    border:1px solid #cbd5e1;
+    border-radius:16px;
+    padding:14px;
+    min-height:100px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.04);
+}
+
+.category-icon{
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    background:#ffebeb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.machine-list{ display:flex; flex-direction:column; gap:10px; }
+
+.machine-card{
+    background:#fff;
+    border:1px solid #cbd5e1;
+    border-radius:14px;
+    padding:12px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    cursor:pointer;
+}
+
+.hospital-counter{
+    background:linear-gradient(135deg, #080808, #8b0000);
+    color:white;
+    padding:6px 10px;
+    border-radius:10px;
+    text-align:center;
+}
+
+/* DETAILS PAGE */
+.details-card{
+    background:#fff;
+    border:1px solid #cbd5e1;
+    border-radius:16px;
+    padding:18px;
+    box-shadow:0 4px 12px rgba(0,0,0,.05);
+    margin-bottom:20px;
+}
+
+.details-title-box{
+    border-bottom:2px solid #f1f5f9;
+    padding-bottom:12px;
+    margin-bottom:14px;
+}
+
+.details-title-box h2{ font-size:18px; color:#0f172a; font-weight:800; }
+.details-title-box p{ font-size:12px; color:#8b0000; font-weight:700; margin-top:2px; }
+.serial-tag{ font-size:11px; color:#64748b; font-weight:600; margin-top:4px; }
+
+.details-grid{ display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+.info-box{
+    background:#f8fafc;
+    border:1px solid #e2e8f0;
+    border-radius:10px;
+    padding:10px;
+}
+
+.info-box.full-width{ grid-column: span 2; }
+.info-box label{ display:block; font-size:10px; color:#64748b; font-weight:700; text-transform:uppercase; margin-bottom:3px; }
+.info-box span{ font-size:13px; color:#0f172a; font-weight:700; }
+
+/* ACTION BUTTONS ON DETAILS PAGE */
+.action-btn-group{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-bottom:20px;
+}
+
+.download-word-btn{
+    width:100%;
+    padding:12px;
+    background:linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    box-shadow:0 4px 12px rgba(37,99,235,.3);
+}
+
+.download-word-btn:active{ transform:scale(0.98); }
+
+.copy-details-btn{
+    width:100%;
+    padding:12px;
+    background:linear-gradient(135deg, #080808 0%, #8b0000 100%);
+    color:white;
+    border:none;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:700;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    box-shadow:0 4px 12px rgba(139,0,0,.3);
+}
+
+.copy-details-btn:active{ transform:scale(0.98); }
+
+/* HOSPITAL TABLE FORMATTING */
+.hospital-table-wrapper{
+    width:100%;
+    overflow-x:auto;
+    background:#fff;
+    border:1px solid #cbd5e1;
+    border-radius:12px;
+}
+
+.hospital-table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:11px;
+    text-align:left;
+}
+
+.hospital-table th{
+    background:#f1f5f9;
+    padding:10px 8px;
+    font-weight:800;
+    color:#0f172a;
+    border-bottom:1px solid #cbd5e1;
+}
+
+.hospital-table td{
+    padding:10px 8px;
+    border-bottom:1px solid #e2e8f0;
+    color:#334155;
+}
+
+.hospital-table tr:last-child td{ border-bottom:none; }
+
+/* FAB ADD BUTTON */
+.fab-btn{
+    position:fixed;
+    bottom:28px;
+    right:calc(50% - 240px + 24px);
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #000000 0%, #8b0000 100%);
+    color:#ffffff;
+    border:2px solid rgba(255,255,255,0.2);
+    font-size:28px;
+    font-weight:300;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(139,0,0,.45);
+    z-index:90;
+}
+
+@media (max-width:480px){ .fab-btn{ right:20px; } }
+
+/* MODALS */
+.modal-overlay{
+    position:fixed;
+    top:0; left:0; width:100%; height:100%;
+    background:rgba(0,0,0,.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:100;
+    padding:20px;
+}
+
+.modal{
+    background:#fff;
+    width:100%;
+    max-width:420px;
+    max-height:90vh;
+    overflow-y:auto;
+    border-radius:16px;
+    padding:20px;
+}
+
+.modal h3{ margin-bottom:12px; font-size:15px; }
+.form-group{ margin-bottom:10px; }
+.form-group label{ display:block; font-size:11px; font-weight:700; margin-bottom:4px; }
+.form-group input{ width:100%; padding:8px 10px; border:1px solid #cbd5e1; border-radius:8px; font-size:12px; outline:none; }
+
+.modal-actions{ display:flex; justify-content:flex-end; gap:8px; margin-top:14px; }
+.btn{ padding:8px 12px; border-radius:8px; border:none; font-size:11px; font-weight:700; cursor:pointer; }
+.btn-cancel{ background:#e2e8f0; color:#334155; }
+.btn-submit{ background:#8b0000; color:#fff; }
+.btn-delete{ background:#b00000; color:#fff; width:100%; margin-top:8px; padding:10px; }
+.btn-edit{ background:#1e293b; color:#fff; width:100%; padding:10px; }
+</style>
+</head>
+<body>
+
+<div class="app">
+    <div class="header">
+        <button class="back-btn" onclick="goBack()">←</button>
+        <div class="logo">
+            <h1 id="headerTitle">Categories</h1>
+            <p>ABC Medical System</p>
+        </div>
+        <div style="width:36px;"></div> <!-- Spacer -->
+    </div>
+
+    <div class="content">
+        <!-- CATEGORY VIEW -->
+        <div id="categoryView">
+            <div class="section-header">
+                <div class="section-title"><div class="title-line"></div><h2>Categories</h2></div>
+                <div class="badge-count" id="categoryCount">0 Categories</div>
+            </div>
+            <div class="category-grid" id="categoryGrid"></div>
+        </div>
+
+        <!-- MACHINE LIST VIEW -->
+        <div id="machineView" style="display:none;">
+            <div class="section-header">
+                <div class="section-title"><div class="title-line"></div><h2 id="selectedCategoryTitle">Machine List</h2></div>
+                <div class="badge-count" id="machineCount">0 Machines</div>
+            </div>
+            <div class="machine-list" id="machineList"></div>
+        </div>
+
+        <!-- MACHINE DETAILS VIEW -->
+        <div id="detailsView" style="display:none;">
+            <div class="section-header">
+                <div class="section-title"><div class="title-line"></div><h2>Specification Details</h2></div>
+            </div>
+            <div class="details-card" id="detailsContent"></div>
+
+            <div class="action-btn-group">
+                <!-- DOWNLOAD PDF FILE BUTTON -->
+                <button class="download-word-btn" onclick="downloadPDFDocument()">
+                    📄 Download PDF Report
+                </button>
+                
+                <!-- COPY TEXT BUTTON -->
+                <button class="copy-details-btn" onclick="copyMachineDataForPDF()">
+                    📋 Copy Text Data
+                </button>
+            </div>
+
+            <div class="section-header">
+                <div class="section-title"><div class="title-line"></div><h2>Installed Hospitals</h2></div>
+                <div class="badge-count" id="installedHospitalsCount">0 Hospitals</div>
+            </div>
+            <div id="hospitalListContainer"></div>
+        </div>
+    </div>
+
+    <button class="fab-btn" id="fabBtn" onclick="handleFloatingAdd()">+</button>
+
+    <!-- ACTION MODAL -->
+    <div class="modal-overlay" id="actionModal">
+        <div class="modal">
+            <h3 id="actionModalTitle">Manage Item</h3>
+            <button class="btn btn-edit" onclick="triggerEdit()">✏️ Edit</button>
+            <button class="btn btn-delete" onclick="triggerDelete()">🗑️️ Delete</button>
+            <button class="btn btn-cancel" style="width:100%; margin-top:8px; padding:10px;" onclick="closeModals()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- CATEGORY MODAL -->
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal">
+            <h3 id="catModalTitle">Add Category</h3>
+            <div class="form-group"><label>Category Name</label><input type="text" id="newCatName"></div>
+            <div class="form-group"><label>Category Icon</label><input type="text" id="newCatIcon" placeholder="e.g. 🏥"></div>
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-submit" onclick="saveCategory()">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MACHINE MODAL -->
+    <div class="modal-overlay" id="machineModal">
+        <div class="modal">
+            <h3 id="machineModalTitle">Add Machine</h3>
+            <div class="form-group"><label>Instrument Name</label><input type="text" id="mName"></div>
+            <div class="form-group"><label>Brand & Model</label><input type="text" id="mBrandModel"></div>
+            <div class="form-group"><label>Serial Number / ID</label><input type="text" id="mSerial" placeholder="e.g. SN-884920"></div>
+            <div class="form-group"><label>Warranty Duration</label><input type="text" id="mWarranty"></div>
+            <div class="form-group"><label>Country of Origin</label><input type="text" id="mOrigin"></div>
+            <div class="form-group"><label>Power Supply</label><input type="text" id="mPower"></div>
+            <div class="form-group"><label>Grounding</label><input type="text" id="mGrounding"></div>
+            <div class="form-group"><label>Frequency</label><input type="text" id="mFrequency"></div>
+
+            <div class="modal-actions">
+                <button class="btn btn-cancel" onclick="closeModals()">Cancel</button>
+                <button class="btn btn-submit" onclick="saveMachine()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const defaultData = [
+    {
+        id: 'cat_1', name: 'X-Ray Equipment', icon: '🩻',
+        machines: [
+            { 
+                id: 'm_1', 
+                serialNumber: 'TR-300',
+                name: 'X-ray Machine TRIUP', 
+                brandModel: 'TRIUP (TR-300)', 
+                warranty: '1 Year', 
+                origin: 'China', 
+                power: '220V AC', 
+                grounding: 'Standard Earth', 
+                frequency: '50 Hz', 
+                hospitals: [
+                    { name: 'Shurjomukhi General Hospital', location: 'Sylhet', installDate: '10.11.25', warranty: 'YES' },
+                    { name: 'SF Diagnostic Centre', location: 'Chuadanga', installDate: '11.12.25', warranty: 'YES' },
+                    { name: 'Erham Diagnostic Centre', location: 'Bhola', installDate: '16.10.25', warranty: 'YES' },
+                    { name: 'Sandwip Diagnostic Centre', location: 'Sandwip', installDate: '22.12.25', warranty: 'YES' },
+                    { name: 'AL-Hera Diagnostic Centre', location: 'Bhola', installDate: '26.11.25', warranty: 'YES' },
+                    { name: 'The Thyrocare Diagnostic & Consultation Centre', location: 'Shirajgonj', installDate: '19.01.26', warranty: 'YES' }
+                ]
+            }
+        ]
+    }
+];
+
+let categoriesData = JSON.parse(localStorage.getItem('abc_medical_data')) || defaultData;
+
+function saveData() {
+    localStorage.setItem('abc_medical_data', JSON.stringify(categoriesData));
+}
+
+let currentStage = 'category';
+let selectedCategoryId = null;
+let selectedMachineId = null;
+
+let holdTimer = null;
+let isHeldFiveSeconds = false;
+let activeType = null;
+let activeData = null;
+
+function setupFiveSecondPress(element, type, data, onClickCallback) {
+    function startHold(e) {
+        isHeldFiveSeconds = false;
+        holdTimer = setTimeout(() => {
+            isHeldFiveSeconds = true;
+            activeType = type;
+            activeData = data;
+            openActionModal();
+        }, 5000);
+    }
+
+    function cancelHold() { clearTimeout(holdTimer); }
+
+    element.addEventListener('mousedown', startHold);
+    element.addEventListener('mouseup', cancelHold);
+    element.addEventListener('mouseleave', cancelHold);
+
+    element.addEventListener('touchstart', startHold, { passive: true });
+    element.addEventListener('touchend', cancelHold);
+    element.addEventListener('touchmove', cancelHold);
+
+    element.addEventListener('click', () => {
+        if (!isHeldFiveSeconds) onClickCallback();
+    });
+}
+
+function openActionModal() {
+    document.getElementById('actionModalTitle').textContent = `Manage: ${activeData.name}`;
+    document.getElementById('actionModal').style.display = 'flex';
+}
+
+function renderCategories() {
+    const grid = document.getElementById('categoryGrid');
+    document.getElementById('categoryCount').textContent = `${categoriesData.length} Categories`;
+    grid.innerHTML = '';
+
+    categoriesData.forEach(cat => {
+        const card = document.createElement('div');
+        card.className = 'category-card';
+        card.innerHTML = `
+            <div class="category-icon">${cat.icon}</div>
+            <h3>${cat.name}</h3>
+            <p style="font-size:10px; color:#64748b;">${cat.machines.length} Items Available</p>
+        `;
+        setupFiveSecondPress(card, 'category', cat, () => openCategory(cat.id));
+        grid.appendChild(card);
+    });
+}
+
+function openCategory(catId) {
+    selectedCategoryId = catId;
+    const cat = categoriesData.find(c => c.id === catId);
+    if (!cat) return;
+
+    currentStage = 'machine';
+    document.getElementById('headerTitle').textContent = cat.name;
+    document.getElementById('selectedCategoryTitle').textContent = `${cat.name} List`;
+    document.getElementById('categoryView').style.display = 'none';
+    document.getElementById('detailsView').style.display = 'none';
+    document.getElementById('machineView').style.display = 'block';
+    document.getElementById('fabBtn').style.display = 'flex';
+
+    renderMachines();
+}
+
+function renderMachines() {
+    const list = document.getElementById('machineList');
+    const cat = categoriesData.find(c => c.id === selectedCategoryId);
+    document.getElementById('machineCount').textContent = `${cat.machines.length} Machines`;
+    list.innerHTML = '';
+
+    cat.machines.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'machine-card';
+        card.innerHTML = `
+            <div>
+                <h3 style="font-size:13px; font-weight:800; color:#0f172a;">${m.name}</h3>
+                <p style="font-size:10px; color:#64748b; margin-top:2px;">${m.brandModel}</p>
+            </div>
+            <div class="hospital-counter">
+                <span style="font-weight:800; font-size:13px;">${m.hospitals ? m.hospitals.length : 0}</span>
+                <p style="font-size:7px;">HOSPITALS</p>
+            </div>
+        `;
+        setupFiveSecondPress(card, 'machine', m, () => openMachineDetails(m.id));
+        list.appendChild(card);
+    });
+}
+
+function openMachineDetails(mId) {
+    selectedMachineId = mId;
+    const cat = categoriesData.find(c => c.id === selectedCategoryId);
+    if (!cat) return;
+    const m = cat.machines.find(item => item.id === mId);
+    if (!m) return;
+
+    currentStage = 'details';
+    document.getElementById('headerTitle').textContent = 'Machine Specs';
+    document.getElementById('machineView').style.display = 'none';
+    document.getElementById('detailsView').style.display = 'block';
+    document.getElementById('fabBtn').style.display = 'none';
+
+    document.getElementById('detailsContent').innerHTML = `
+        <div class="details-title-box">
+            <h2>${m.name}</h2>
+            <p>${m.brandModel}</p>
+            <div class="serial-tag">S/N: ${m.serialNumber || m.id}</div>
+        </div>
+        <div class="details-grid">
+            <div class="info-box"><label>Warranty</label><span>${m.warranty || 'N/A'}</span></div>
+            <div class="info-box"><label>Country of Origin</label><span>${m.origin || 'N/A'}</span></div>
+            <div class="info-box"><label>Power Supply</label><span>${m.power || 'N/A'}</span></div>
+            <div class="info-box"><label>Frequency</label><span>${m.frequency || 'N/A'}</span></div>
+            <div class="info-box full-width"><label>Grounding Requirement</label><span>${m.grounding || 'N/A'}</span></div>
+        </div>
+    `;
+
+    const hospitalList = m.hospitals || [];
+    document.getElementById('installedHospitalsCount').textContent = `${hospitalList.length} Hospitals`;
+    
+    const hospContainer = document.getElementById('hospitalListContainer');
+
+    if(hospitalList.length === 0) {
+        hospContainer.innerHTML = `<p style="font-size:12px; color:#64748b; text-align:center;">No hospital installation record found.</p>`;
+    } else {
+        let tableHTML = `
+            <div class="hospital-table-wrapper">
+                <table class="hospital-table">
+                    <thead>
+                        <tr>
+                            <th style="width:35px; text-align:center;">S/N</th>
+                            <th>CUSTOMER NAME</th>
+                            <th>LOCATION</th>
+                            <th>INSTALLATION DATE</th>
+                            <th style="text-align:center;">WARRANTY</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+        `;
+
+        hospitalList.forEach((h, index) => {
+            tableHTML += `
+                <tr>
+                    <td style="text-align:center; font-weight:700;">${index + 1}</td>
+                    <td style="font-weight:700; color:#0f172a;">${h.name || 'N/A'}</td>
+                    <td>${h.location || 'N/A'}</td>
+                    <td>${h.installDate || 'N/A'}</td>
+                    <td style="text-align:center; font-weight:800; color:${h.warranty === 'YES' ? '#15803d' : '#b91c1c'};">
+                        ${h.warranty || 'YES'}
+                    </td>
+                </tr>
+            `;
+        });
+
+        tableHTML += `
+                    </tbody>
+                </table>
+            </div>
+        `;
+        hospContainer.innerHTML = tableHTML;
+    }
+}
+
+
+/* PDF REPORT - self-contained, no CDN/library required */
+function downloadPDFDocument(){
+ const cat=categoriesData.find(c=>c.id===selectedCategoryId);
+ const m=cat&&cat.machines.find(x=>x.id===selectedMachineId);
+ if(!m){alert("Machine not found.");return;}
+ const esc=v=>String(v??"N/A").replace(/[^\x20-\x7E]/g,"?").replace(/\\/g,"\\\\").replace(/\(/g,"\\(").replace(/\)/g,"\\)");
+ const lines=v=>String(v??"N/A").match(/.{1,82}(\s|$)/g)||[String(v??"N/A")];
+ let pages=[],ops=[],y=800,L=42,R=553;
+ const txt=(v,x,yy,z=9,b=false)=>ops.push(`BT /F${b?2:1} ${z} Tf 1 0 0 1 ${x} ${yy} Tm (${esc(v)}) Tj ET`);
+ const ln=(x,y1,x2,y2)=>ops.push(`0.7 w ${x} ${y1} m ${x2} ${y2} l S`);
+ const np=()=>{if(ops.length)pages.push(ops.join("\n"));ops=[];y=800;};
+ txt("MACHINE SPECIFICATION REPORT",150,y,18,true);y-=20;
+ txt("ABC Medical System",235,y,9);y-=12;ln(L,y,R,y);y-=25;
+ txt("MACHINE SPECIFICATIONS",L,y,12,true);y-=20;
+ [["Category",cat.name],["Machine Name",m.name],["Brand & Model",m.brandModel],
+ ["Serial Number",m.serialNumber||m.id],["Warranty Duration",m.warranty],
+ ["Country of Origin",m.origin],["Power Supply",m.power],["Frequency",m.frequency],
+ ["Grounding Requirement",m.grounding]].forEach(q=>{
+   lines(q[0]+": "+(q[1]||"N/A")).forEach((v,i)=>{txt(v,L+8,y,9,i===0);y-=13;});y-=3;
+ });
+ y-=8;txt("INSTALLED HOSPITALS LIST",L,y,12,true);y-=20;
+ const C=[42,68,235,330,425,553],H=["S/N","CUSTOMER NAME","LOCATION","INSTALLATION DATE","WARRANTY"];
+ function head(){
+   ops.push(`0.92 g ${L} ${y-20} ${R-L} 20 re f 0 g`);
+   for(let i=0;i<6;i++)ln(C[i],y,C[i],y-20);
+   ln(L,y,R,y);ln(L,y-20,R,y-20);
+   H.forEach((v,i)=>txt(v,C[i]+4,y-14,7.3,true));y-=20;
+ }
+ head();
+ const hs=m.hospitals||[];
+ if(!hs.length){txt("No installation record found.",L+8,y-14);ln(L,y-20,R,y-20);y-=20;}
+ hs.forEach((h,k)=>{
+   const v=[k+1,h.name||"N/A",h.location||"N/A",h.installDate||"N/A",h.warranty||"YES"];
+   const rh=28;
+   if(y-rh<55){np();txt("MACHINE SPECIFICATION REPORT - CONTINUED",L,y,11,true);y-=18;head();}
+   for(let i=0;i<6;i++)ln(C[i],y,C[i],y-rh);
+   ln(L,y,R,y);ln(L,y-rh,R,y-rh);
+   v.forEach((x,i)=>txt(x,C[i]+4,y-15,7.3,i===1));y-=rh;
+ });
+ ln(L,34,R,34);txt("Machine Specification Report",L,22,7.5);txt("Generated: "+new Date().toLocaleDateString("en-GB"),445,22,7.5);
+ if(ops.length)pages.push(ops.join("\n"));
+ let objs=["","", "<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>","<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica-Bold >>"];
+ let catalog=1,pagesObj=2,regular=3,bold=4,kids=[];
+ pages.forEach(c=>{
+   const cid=objs.length+1;objs.push(`<< /Length ${c.length} >>\nstream\n${c}\nendstream`);
+   const pid=objs.length+1;objs.push(`<< /Type /Page /Parent ${pagesObj} 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 ${regular} 0 R /F2 ${bold} 0 R >> >> /Contents ${cid} 0 R >>`);
+   kids.push(pid);
+ });
+ objs[catalog-1]=`<< /Type /Catalog /Pages ${pagesObj} 0 R >>`;
+ objs[pagesObj-1]=`<< /Type /Pages /Kids [${kids.map(x=>x+" 0 R").join(" ")}] /Count ${kids.length} >>`;
+ let pdf="%PDF-1.4\n%\xE2\xE3\xCF\xD3\n",off=[0];
+ objs.forEach((o,i)=>{off.push(pdf.length);pdf+=(i+1)+" 0 obj\n"+o+"\nendobj\n";});
+ let x=pdf.length;pdf+="xref\n0 "+(objs.length+1)+"\n0000000000 65535 f \n";
+ for(let i=1;i<off.length;i++)pdf+=String(off[i]).padStart(10,"0")+" 00000 n \n";
+ pdf+="trailer\n<< /Size "+(objs.length+1)+" /Root "+catalog+" 0 R >>\nstartxref\n"+x+"\n%%EOF";
+ const bytes=new Uint8Array(pdf.length);for(let i=0;i<pdf.length;i++)bytes[i]=pdf.charCodeAt(i)&255;
+ const name=(m.name||"Machine").replace(/[^a-zA-Z0-9_-]/g,"_")+"_Report.pdf";
+
+ // HopWeb's Android downloader expects a real base64 data URL.
+ // Blob/object URLs can make HopWeb's downloadFileFromBase64 receive null,
+ // which causes the NullPointerException shown in the APK.
+ let binary="";
+ const chunk=0x8000;
+ for(let i=0;i<bytes.length;i+=chunk){
+   binary += String.fromCharCode.apply(null, bytes.subarray(i, Math.min(i+chunk, bytes.length)));
+ }
+ const base64=btoa(binary);
+ const dataUrl="data:application/pdf;base64,"+base64;
+
+ const a=document.createElement("a");
+ a.href=dataUrl;
+ a.download=name;
+ a.style.display="none";
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+
+ // Fallback: open the same real data URL if the WebView doesn't save
+ // the download automatically.
+ setTimeout(()=>{
+   try{ window.open(dataUrl,"_blank"); }
+   catch(e){ location.href=dataUrl; }
+ },1000);
+}
+/* WORD DOCUMENT GENERATION AND DOWNLOAD FUNCTION */
+function downloadWordDocument() {
+    const cat = categoriesData.find(c => c.id === selectedCategoryId);
+    if (!cat) return;
+    const m = cat.machines.find(item => item.id === selectedMachineId);
+    if (!m) return;
+
+    const fileName = `${m.name.replace(/[^a-zA-Z0-9]/g, '_')}_Report.doc`;
+
+    let wordHTML = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head>
+            <meta charset='utf-8'>
+            <title>${m.name}</title>
+            <style>
+                body { font-family: Arial, sans-serif; font-size: 12pt; }
+                h1 { color: #8b0000; font-size: 18pt; text-align: center; margin-bottom: 5px; }
+                p.sub { text-align: center; font-weight: bold; color: #555; margin-top: 0; }
+                table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+                th, td { border: 1px solid #000; padding: 8px; text-align: left; font-size: 10pt; }
+                th { background-color: #f2f2f2; font-weight: bold; }
+                .spec-box { border: 1px solid #ccc; padding: 10px; background: #fafafa; margin-bottom: 20px; }
+            </style>
+        </head>
+        <body>
+            <h1>${m.name}</h1>
+            <p class="sub">Model: ${m.brandModel || 'N/A'} | S/N: ${m.serialNumber || m.id}</p>
+            <hr>
+            
+            <h3>Machine Specifications:</h3>
+            <div class="spec-box">
+                <p><b>Warranty:</b> ${m.warranty || 'N/A'}</p>
+                <p><b>Country of Origin:</b> ${m.origin || 'N/A'}</p>
+                <p><b>Power Supply:</b> ${m.power || 'N/A'}</p>
+                <p><b>Frequency:</b> ${m.frequency || 'N/A'}</p>
+                <p><b>Grounding Requirement:</b> ${m.grounding || 'N/A'}</p>
+            </div>
+
+            <h3>Installed Hospitals List:</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 40px; text-align:center;">S/N</th>
+                        <th>CUSTOMER NAME</th>
+                        <th>LOCATION</th>
+                        <th>INSTALLATION DATE</th>
+                        <th style="text-align:center;">WARRANTY</th>
+                    </tr>
+                </thead>
+                <tbody>
+    `;
+
+    if (m.hospitals && m.hospitals.length > 0) {
+        m.hospitals.forEach((h, index) => {
+            wordHTML += `
+                <tr>
+                    <td style="text-align:center;">${index + 1}</td>
+                    <td><b>${h.name}</b></td>
+                    <td>${h.location || 'N/A'}</td>
+                    <td>${h.installDate || 'N/A'}</td>
+                    <td style="text-align:center;">${h.warranty || 'YES'}</td>
+                </tr>
+            `;
+        });
+    } else {
+        wordHTML += `<tr><td colspan="5" style="text-align:center;">No installation record found.</td></tr>`;
+    }
+
+    wordHTML += `
+                </tbody>
+            </table>
+        </body>
+        </html>
+    `;
+
+    const blob = new Blob(['\ufeff' + wordHTML], {
+        type: 'application/vnd.ms-word'
+    });
+
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = fileName;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+}
+
+function copyMachineDataForPDF() {
+    const cat = categoriesData.find(c => c.id === selectedCategoryId);
+    if (!cat) return;
+    const m = cat.machines.find(item => item.id === selectedMachineId);
+    if (!m) return;
+
+    let text = `${m.name} (${m.brandModel})\nS/N: ${m.serialNumber || m.id}\n\n`;
+    text += `S/N | CUSTOMER NAME | LOCATION | INSTALLATION DATE | WARRANTY\n`;
+    text += `------------------------------------------------------------\n`;
+
+    if (m.hospitals && m.hospitals.length > 0) {
+        m.hospitals.forEach((h, index) => {
+            text += `${index + 1}. | ${h.name} | ${h.location || 'N/A'} | ${h.installDate || 'N/A'} | ${h.warranty || 'YES'}\n`;
+        });
+    }
+
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Copied details to clipboard!");
+    });
+}
+
+function triggerEdit() {
+    closeModals();
+    if (activeType === 'category') {
+        document.getElementById('catModalTitle').textContent = 'Edit Category';
+        document.getElementById('newCatName').value = activeData.name;
+        document.getElementById('newCatIcon').value = activeData.icon;
+        document.getElementById('categoryModal').style.display = 'flex';
+    } else {
+        document.getElementById('machineModalTitle').textContent = 'Edit Machine';
+        document.getElementById('mName').value = activeData.name;
+        document.getElementById('mBrandModel').value = activeData.brandModel;
+        document.getElementById('mSerial').value = activeData.serialNumber || '';
+        document.getElementById('mWarranty').value = activeData.warranty;
+        document.getElementById('mOrigin').value = activeData.origin;
+        document.getElementById('mPower').value = activeData.power;
+        document.getElementById('mGrounding').value = activeData.grounding;
+        document.getElementById('mFrequency').value = activeData.frequency;
+
+        document.getElementById('machineModal').style.display = 'flex';
+    }
+}
+
+function triggerDelete() {
+    closeModals();
+    if (confirm(`Confirm delete "${activeData.name}"?`)) {
+        if (activeType === 'category') {
+            categoriesData = categoriesData.filter(c => c.id !== activeData.id);
+            saveData();
+            renderCategories();
+        } else {
+            const cat = categoriesData.find(c => c.id === selectedCategoryId);
+            if (cat) {
+                cat.machines = cat.machines.filter(m => m.id !== activeData.id);
+                saveData();
+                renderMachines();
+            }
+        }
+    }
+}
+
+function handleFloatingAdd() {
+    activeData = null;
+    if (currentStage === 'category') {
+        document.getElementById('catModalTitle').textContent = 'Add Category';
+        document.getElementById('newCatName').value = '';
+        document.getElementById('newCatIcon').value = '';
+        document.getElementById('categoryModal').style.display = 'flex';
+    } else if (currentStage === 'machine') {
+        document.getElementById('machineModalTitle').textContent = 'Add Machine';
+        document.getElementById('mName').value = '';
+        document.getElementById('mBrandModel').value = '';
+        document.getElementById('mSerial').value = '';
+        document.getElementById('mWarranty').value = '';
+        document.getElementById('mOrigin').value = '';
+        document.getElementById('mPower').value = '';
+        document.getElementById('mGrounding').value = '';
+        document.getElementById('mFrequency').value = '';
+        document.getElementById('machineModal').style.display = 'flex';
+    }
+}
+
+function saveCategory() {
+    const name = document.getElementById('newCatName').value.trim();
+    const icon = document.getElementById('newCatIcon').value.trim() || '🏥';
+    if (!name) return alert('Enter Category Name');
+
+    if (activeData) {
+        const c = categoriesData.find(item => item.id === activeData.id);
+        if (c) { c.name = name; c.icon = icon; }
+    } else {
+        categoriesData.push({ id: 'cat_' + Date.now(), name, icon, machines: [] });
+    }
+    saveData();
+    closeModals();
+    renderCategories();
+}
+
+function saveMachine() {
+    const name = document.getElementById('mName').value.trim();
+    const brandModel = document.getElementById('mBrandModel').value.trim();
+    const serialNumber = document.getElementById('mSerial').value.trim();
+    const warranty = document.getElementById('mWarranty').value.trim();
+    const origin = document.getElementById('mOrigin').value.trim();
+    const power = document.getElementById('mPower').value.trim();
+    const grounding = document.getElementById('mGrounding').value.trim();
+    const frequency = document.getElementById('mFrequency').value.trim();
+
+    if (!name || !brandModel) return alert('Fill required fields');
+
+    const cat = categoriesData.find(c => c.id === selectedCategoryId);
+    if (cat) {
+        if (activeData) {
+            const m = cat.machines.find(item => item.id === activeData.id);
+            if (m) {
+                m.name = name;
+                m.brandModel = brandModel;
+                m.serialNumber = serialNumber;
+                m.warranty = warranty;
+                m.origin = origin;
+                m.power = power;
+                m.grounding = grounding;
+                m.frequency = frequency;
+            }
+        } else {
+            cat.machines.push({
+                id: 'm_' + Date.now(),
+                serialNumber: serialNumber || ('SN-' + Math.floor(100000 + Math.random() * 900000)),
+                name, brandModel, warranty, origin, power, grounding, frequency,
+                hospitals: [] 
+            });
+        }
+        saveData();
+        renderMachines();
+    }
+    closeModals();
+}
+
+function closeModals() {
+    document.getElementById('actionModal').style.display = 'none';
+    document.getElementById('categoryModal').style.display = 'none';
+    document.getElementById('machineModal').style.display = 'none';
+}
+
+function goBack() {
+    if (currentStage === 'details') {
+        openCategory(selectedCategoryId);
+    } else if (currentStage === 'machine') {
+        currentStage = 'category';
+        selectedCategoryId = null;
+        document.getElementById('headerTitle').textContent = 'Categories';
+        document.getElementById('machineView').style.display = 'none';
+        document.getElementById('detailsView').style.display = 'none';
+        document.getElementById('categoryView').style.display = 'block';
+        document.getElementById('fabBtn').style.display = 'flex';
+        renderCategories();
+    }
+}
+
+window.addEventListener('contextmenu', e => e.preventDefault(), false);
+window.onload = renderCategories;
+</script>
+</body>
+</html>
